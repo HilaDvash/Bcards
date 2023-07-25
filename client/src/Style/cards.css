@@ -1,0 +1,22 @@
+#cards {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  gap:15px;
+}
+/* .css-1ri6ub7-MuiPaper-root-MuiCard-root {
+  width: 30%;
+} */
+.span {
+  font-weight: bold;
+}
+
+.color {
+  color: rgba(0, 0, 0, 0.6);
+}
+.css-o69gx8-MuiCardMedia-root {
+  width: fit-content !important;
+  margin: auto;
+}

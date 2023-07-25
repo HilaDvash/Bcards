@@ -8,6 +8,7 @@ const { handleBadRequest } = require("../../utils/handleErrors");
 const registerUser = async (normalizedUser) => {
   if (DB === "MONGODB") {
     try {
+      console.log(normalizedUser)
       const { email } = normalizedUser;
       let user = await User.findOne({ email });
       if (user) throw new Error("User already registered");
@@ -15,7 +16,7 @@ const registerUser = async (normalizedUser) => {
       user = new User(normalizedUser);
       user = await user.save();
 
-      user = lodash.pick(user, ["name", "email", "_id"]);
+      // user = lodash.pick(user, ["name", "email", "_id"]);
       return Promise.resolve(user);
     } catch (error) {
       error.status = 400;
@@ -36,8 +37,9 @@ const loginUser = async ({ email, password }) => {
       if (!validPassword)
         throw new Error("Authentication Error: Invalid email or password");
 
+
       const token = generateAuthToken(user);
-      return Promise.resolve(token);
+      return Promise.resolve({token, user});
     } catch (error) {
       error.status = 400;
       return Promise.reject(error);

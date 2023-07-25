@@ -40,6 +40,7 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     let user = req.body;
+    console.log(user)
     const { error } = validateLogin(user);
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);

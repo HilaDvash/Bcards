@@ -1,24 +1,31 @@
-import './App.css';
-import Layout from './layout/Layout';
-import {BrowserRouter} from 'react-router-dom';
-import Router from './routes/Router';
-import {AppThemePrvoider} from './providers/ThemePrvoider';
-import {SnackbarProvider} from './providers/SnackbarProvider';
-import {UserProvider} from './users/providers/UserProvider';
-
-function App () {
+import logo from "./logo.svg";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import About from "./components/About";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NewCard from "./components/NewCard";
+import Mycards from "./components/Mycards";
+import Favcards from "./components/Favcards";
+function App() {
   return (
-    <BrowserRouter>
-      <AppThemePrvoider>
-        <SnackbarProvider>
-          <UserProvider>
-            <Layout>
-              <Router />
-            </Layout>
-          </UserProvider>
-        </SnackbarProvider>
-      </AppThemePrvoider>
-    </BrowserRouter>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navbar />}>
+            <Route index element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/newcard" element={<NewCard />} />
+            <Route path="/myCards" element={<Mycards />} />
+            <Route path="/favcards" element={<Favcards />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

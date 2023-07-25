@@ -12,7 +12,8 @@ const auth = (req, res, next) => {
         throw new Error("Authentication Error: Please Login");
 
       const userInfo = verifyToken(tokenFromClient);
-      if (!userInfo) throw new Error("Authentication Error: Unauthorize user");
+      console.log(userInfo)
+      // if (!userInfo) throw new Error("Authentication Error: Unauthorize user");
 
       req.user = userInfo;
       return next();

@@ -69,20 +69,33 @@ router.put("/:id", auth, async (req, res) => {
     let card = req.body;
     const cardId = req.params.id;
     const userId = req.user._id;
-
-    if (userId !== card.user_id) {
+    
+    
+    if(userId == card.user_id){
+      const { error } = validateCard(card);
+      if (error)
+        return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+      card = await normalizeCard(card);
+      card = await updateCard(cardId, card);
+      return res.send(card);
+    }
+    else {
       const message =
         "Authorization Error: Only the user who created the business card can update its details";
       return handleError(res, 403, message);
+
     }
 
-    const { error } = validateCard(card);
-    if (error)
-      return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+    // if (userId !== card.user_id) {
+    // }
 
-    card = await normalizeCard(card);
-    card = await updateCard(cardId, card);
-    return res.send(card);
+    // const { error } = validateCard(card);
+    // if (error)
+    //   return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+
+    // card = await normalizeCard(card);
+    // card = await updateCard(cardId, card);
+    // return res.send(card);
   } catch (error) {
     return handleError(res, error.status || 500, error.message);
   }
